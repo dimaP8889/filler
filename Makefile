@@ -12,7 +12,7 @@
 
 NAME = ./dpogrebn.filler
 LIBA = libft/libft.a
-SRC = dpogrebn.filler.c
+SRC = dpogrebn.filler.c ft_fill.c
 HEADER = dpogrebn.filler.h
 FLAGS = -Wall -Wextra -Werror
 CC = gcc
