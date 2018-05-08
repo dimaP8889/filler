@@ -27,5 +27,6 @@ typedef struct 	s_flr
 }				t_flr;
 
 void	ft_fill(t_flr flr);
+void	ft_print(t_flr flr);
 
 #endif

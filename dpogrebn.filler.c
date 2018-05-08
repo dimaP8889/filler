@@ -22,29 +22,33 @@ void	ft_print(t_flr flr)
 		ft_printf("%s\n", flr.map[coun]);
 		coun++;
 	}
-	coun = 0;
-	while (flr.piece[coun])
-	{
-		ft_printf("%s\n", flr.piece[coun]);
-		coun++;
-	}
+	// coun = 0;
+	// while (flr.piece[coun])
+	// {
+	// 	ft_printf("%s\n", flr.piece[coun]);
+	// 	coun++;
+	// }
 }
 
 int		ft_check_player(int fd)
 {
 	char *str;
+	int ret;
+
 	while (get_next_line(fd, &str))
 	{
 		if (ft_strstr(str, "carli.filler"))
 		{
 			get_next_line(fd, &str);
 			if (ft_strstr(str, "p1"))
-				return (1);
+				ret = 1;
 			else if (ft_strstr(str, "p2"))
-				return (2);
+				ret = 2;
 		}
+		if (ft_strstr(str, "exec p2"))
+			return(ret);
 	}
-	return(0);
+	return(ret);
 }
 
 char	**ft_fill_map(int fd, int hei_c, char **map)
@@ -128,7 +132,7 @@ void 	ft_read(t_flr flr, int fd)
 		flr.map = ft_get_size(str, fd);
 		get_next_line(fd, &str);
 		flr.piece = ft_get_size(str, fd);
-		ft_print(flr);
+		// ft_print(flr);
 		ft_fill(flr);
 	}
 }
