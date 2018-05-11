@@ -12,8 +12,8 @@
 
 NAME = ./dpogrebn.filler
 LIBA = libft/libft.a
-SRC = dpogrebn.filler.c ft_fill.c
-HEADER = dpogrebn.filler.h
+SRC = src/dpogrebn.filler.c src/ft_fill.c src/ft_put_del.c src/extra_fc.c
+HEADER = src/dpogrebn.filler.h
 FLAGS = -Wall -Wextra -Werror
 CC = gcc
 

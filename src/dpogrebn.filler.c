@@ -12,44 +12,30 @@
 
 #include "dpogrebn.filler.h"
 
-void	ft_print(t_flr flr)
-{
-	int coun;
+/* 
+Find number of a player 
+*/
 
-	coun = 0;
-	while (flr.map[coun])
-	{
-		ft_printf("%s\n", flr.map[coun]);
-		coun++;
-	}
-	// coun = 0;
-	// while (flr.piece[coun])
-	// {
-	// 	ft_printf("%s\n", flr.piece[coun]);
-	// 	coun++;
-	// }
-}
-
-int		ft_check_player(int fd)
+int		ft_check_player(int fd) 
 {
 	char *str;
-	int ret;
 
 	while (get_next_line(fd, &str))
 	{
-		if (ft_strstr(str, "carli.filler"))
+		if (ft_strstr(str, "dpogrebn.filler"))
 		{
-			get_next_line(fd, &str);
 			if (ft_strstr(str, "p1"))
-				ret = 1;
+				return (1);
 			else if (ft_strstr(str, "p2"))
-				ret = 2;
+				return (2);
 		}
-		if (ft_strstr(str, "exec p2"))
-			return(ret);
 	}
-	return(ret);
+	return(0);
 }
+
+/*
+Copy map to char massive
+*/
 
 char	**ft_fill_map(int fd, int hei_c, char **map)
 {
@@ -61,6 +47,8 @@ char	**ft_fill_map(int fd, int hei_c, char **map)
 	if (!c)
 	{
 		get_next_line(fd, &str);
+		if (ft_strstr(str, ".") || ft_strstr(str, "*"))
+			exit (1);
 		c = 1;
 	}
 	else 
@@ -77,6 +65,10 @@ char	**ft_fill_map(int fd, int hei_c, char **map)
 	map[coun] = NULL;
 	return(map);
 }
+
+/*
+Allocate mem for char massive
+*/
 
 char	**ft_get_size(char *str, int fd)
 {
@@ -106,6 +98,8 @@ char	**ft_get_size(char *str, int fd)
 	return(map);
 }
 
+/* Main program*/
+
 void 	ft_read(t_flr flr, int fd)
 {
 	static int 	check;
@@ -114,26 +108,19 @@ void 	ft_read(t_flr flr, int fd)
 	if (!check)
 	{
 		flr.player = ft_check_player(fd);
-		if (flr.player == 1)
-		{
-			flr.let = 'O';
-			flr.op = 'X';
-		}
-		else if (flr.player == 2)
-		{
-			flr.let = 'X';
-			flr.op = 'O';
-		}
+		while (ft_strstr(str, "p2"))
+			get_next_line(fd, &str);
+		ft_op_let(&flr);
 		check = 1;
 	}
-	/*else*/
+	while (1)
 	{
 		get_next_line(fd, &str);
 		flr.map = ft_get_size(str, fd);
 		get_next_line(fd, &str);
 		flr.piece = ft_get_size(str, fd);
-		// ft_print(flr);
-		ft_fill(flr);
+		if (!ft_fill(flr))
+			return ;
 	}
 }
 
@@ -144,8 +131,5 @@ int		main(void)
 	int fd;
 	flr.player = 0;
 	fd = open("read", O_RDONLY);
-	// while (1)
-	// {
-	ft_read(flr, fd);
-	// }
+	ft_read(flr, 0);
 }
