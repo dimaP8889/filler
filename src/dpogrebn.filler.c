@@ -48,7 +48,7 @@ char	**ft_fill_map(int fd, int hei_c, char **map)
 	{
 		get_next_line(fd, &str);
 		if (ft_strstr(str, ".") || ft_strstr(str, "*"))
-			exit (1);
+			return (NULL);
 		c = 1;
 	}
 	else 

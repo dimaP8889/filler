@@ -12,7 +12,7 @@
 
 NAME = visual
 LIBA = ../libft/libft.a
-SRC = visual.c
+SRC = visual.c ft_out.c
 HEADER = visual.h
 FLAGS = -Wall -Wextra -Werror
 FLAGS_MLX = -lmlx

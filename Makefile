@@ -18,4 +18,5 @@ FLAGS = -Wall -Wextra -Werror
 CC = gcc
 
 comp:
+	make -C visual/
 	$(CC) $(FLAGS) -o $(NAME) $(SRC) $(LIBA)

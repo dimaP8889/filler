@@ -12,22 +12,19 @@
 
 #include "visual.h"
 
+/*
+Fill map
+*/
+
 char	**ft_fill_map(int fd, int hei_c, char **map)
 {
 	char		*str;
 	int			coun;
-	static int	c;
 
 	coun = 0;
-	if (!c)
-	{
-		get_next_line(fd, &str);
-		if (ft_strstr(str, ".") || ft_strstr(str, "*"))
-			exit (1);
-		c = 1;
-	}
-	else 
-		c = 0;
+	get_next_line(fd, &str);
+	if (ft_strstr(str, ".") || ft_strstr(str, "*"))
+		return (NULL);
 	while (hei_c > 0)
 	{
 		get_next_line(fd, &str);
@@ -45,7 +42,7 @@ char	**ft_fill_map(int fd, int hei_c, char **map)
 Allocate mem for char massive
 */
 
-char	**ft_get_size(char *str, int fd)
+char	**ft_get_size(char *str, int fd, t_mlx *vis)
 {
 	int 	len;
 	int		hei;
@@ -63,6 +60,10 @@ char	**ft_get_size(char *str, int fd)
 	len = ft_atoi(str);
 	map = (char **)malloc(sizeof(char *) * (hei + 1));
 	hei_c = hei;
+	vis->len = LEN_P / len;
+	vis->hei = HEI_P / hei;
+	// printf("len :%f\n", vis->len);
+	// printf("hei :%f\n", vis->hei);
 	while (hei > 0)
 	{
 		map[coun] = (char *)malloc(sizeof(char) * (len + 1));
@@ -70,15 +71,68 @@ char	**ft_get_size(char *str, int fd)
 		hei--;
 	}
 	map = ft_fill_map(fd, hei_c, map);
+	coun = 0;
+	// ft_printf("map\n");
+	// while (map[coun])
+	// {
+	// 	ft_printf("%s\n",map[coun]);
+	// 	coun++;
+	// }
 	return(map);
 }
 
+int		key(int num, void *vis)
+{
+	(void)vis;
+	if (num == 53)
+		exit(1);
+	return (0);
+}
+/*
+Find map
+*/
+
 int		ft_visual(void *v)
 {
+	char	*str;
 	t_mlx	*vis;
+	int		fd;
 
+	fd = 0;
+	fd = open("../read", O_RDONLY);
 	vis = (t_mlx *)v;
-	vis.map = ft_get_size(str, fd);
+
+	fd = 0;
+	while (!ft_strstr(str, "Plateau"))
+	{
+		get_next_line(fd, &str);
+		if (ft_strstr(str, "O fin"))
+		{
+			mlx_destroy_window(vis->mlx, vis->wnd);
+			vis->mlx = mlx_init();
+			vis->wnd = mlx_new_window(vis->mlx, 990, 600, "mlx 42");
+			mlx_string_put (  vis->mlx, vis->wnd, 420, 260, 0xFF0000, str );
+			get_next_line(fd, &str);
+			mlx_string_put (  vis->mlx, vis->wnd, 420, 300, 0xFF0000, str );
+			mlx_key_hook(vis->wnd, key, &vis);
+			mlx_loop(vis->mlx);
+		}
+	}
+	vis->map = ft_get_size(str, fd, vis);
+	ft_out(vis);
+	return (0);
+}
+
+
+static void	ft_init_image(t_mlx *data)
+{
+	int		bpp;
+	int		ln_s;
+	int		endian;
+
+	data->img.img_ptr = mlx_new_image(data->mlx, 990, 600);
+	data->img.img_mas = (int *)mlx_get_data_addr(data->img.img_ptr, &(bpp), &(ln_s),
+	&(endian));
 }
 
 int		main(void)
@@ -86,8 +140,10 @@ int		main(void)
 	t_mlx	vis;
 
 	vis.mlx = mlx_init();
-	vis.wnd = mlx_new_window(vis.mlx, 200, 300, "mlx 42");
+	vis.wnd = mlx_new_window(vis.mlx, 990, 600, "mlx 42");
+	ft_init_image(&vis);
 	mlx_loop_hook(vis.mlx, ft_visual, &vis);
-	mlx_loop(data.mlx);
+	mlx_key_hook(vis.wnd, key, &vis);
+	mlx_loop(vis.mlx);
 	return (0);
 }
