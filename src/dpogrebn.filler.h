@@ -16,9 +16,6 @@
 #include "../libft/includes/libft.h"
 #include "../libft/includes/get_next_line.h"
 #include "../libft/ft_printf/ft_printf.h"
-#include <stdio.h>
-#include <string.h>
-//#include "../minilibx/mlx.h"
 
 typedef struct 	s_flr
 {

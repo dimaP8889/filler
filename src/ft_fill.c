@@ -6,7 +6,7 @@
 /*   By: dmitriy1 <dmitriy1@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 14:47:27 by dmitriy1          #+#    #+#             */
-/*   Updated: 2018/05/10 17:51:06 by dmitriy1         ###   ########.fr       */
+/*   Updated: 2018/05/12 17:25:09 by dmitriy1         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 Count numbers for shortest way
 */
 
-int		ft_count_len(int y2, int y1, int x2, int x1)
+static	int		ft_count_len(int y2, int y1, int x2, int x1)
 {
 	int y;
 	int x;
@@ -34,7 +34,7 @@ int		ft_count_len(int y2, int y1, int x2, int x1)
 Fill map with numbers
 */
 
-void	ft_fill_near(t_flr flr, int x_len, int y_len)
+static	void	ft_fill_near(t_flr flr, int x_len, int y_len)
 {
 	int		x;
 	int		y;
@@ -67,7 +67,7 @@ void	ft_fill_near(t_flr flr, int x_len, int y_len)
 Fill map with numbers
 */
 
-void	ft_fill_num(t_flr flr)
+static	void	ft_fill_num(t_flr flr)
 {
 	int	x;
 	int	y;

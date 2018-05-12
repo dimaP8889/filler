@@ -6,7 +6,7 @@
 /*   By: dmitriy1 <dmitriy1@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:58:18 by dmitriy1          #+#    #+#             */
-/*   Updated: 2018/05/10 20:16:23 by dmitriy1         ###   ########.fr       */
+/*   Updated: 2018/05/12 17:14:43 by dmitriy1         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 Fill map
 */
 
-char	**ft_fill_map(int fd, int hei_c, char **map)
+static	char	**ft_fill_map(int fd, int hei_c, char **map)
 {
 	char		*str;
 	int			coun;
@@ -42,7 +42,7 @@ char	**ft_fill_map(int fd, int hei_c, char **map)
 Allocate mem for char massive
 */
 
-char	**ft_get_size(char *str, int fd, t_mlx *vis)
+static	char	**ft_get_size(char *str, int fd, t_mlx *vis)
 {
 	int 	len;
 	int		hei;
@@ -62,46 +62,38 @@ char	**ft_get_size(char *str, int fd, t_mlx *vis)
 	hei_c = hei;
 	vis->len = LEN_P / len;
 	vis->hei = HEI_P / hei;
-	// printf("len :%f\n", vis->len);
-	// printf("hei :%f\n", vis->hei);
-	while (hei > 0)
+	while (hei-- > 0)
 	{
 		map[coun] = (char *)malloc(sizeof(char) * (len + 1));
 		coun++;
-		hei--;
 	}
 	map = ft_fill_map(fd, hei_c, map);
-	coun = 0;
-	// ft_printf("map\n");
-	// while (map[coun])
-	// {
-	// 	ft_printf("%s\n",map[coun]);
-	// 	coun++;
-	// }
 	return(map);
 }
 
-int		key(int num, void *vis)
+/*
+Exit key
+*/
+
+static	int		key(int num, void *vis)
 {
 	(void)vis;
 	if (num == 53)
 		exit(1);
 	return (0);
 }
+
 /*
 Find map
 */
 
-int		ft_visual(void *v)
+static	int		ft_visual(void *v)
 {
 	char	*str;
 	t_mlx	*vis;
 	int		fd;
 
-	fd = 0;
-	fd = open("../read", O_RDONLY);
 	vis = (t_mlx *)v;
-
 	fd = 0;
 	while (!ft_strstr(str, "Plateau"))
 	{
@@ -123,19 +115,7 @@ int		ft_visual(void *v)
 	return (0);
 }
 
-
-static void	ft_init_image(t_mlx *data)
-{
-	int		bpp;
-	int		ln_s;
-	int		endian;
-
-	data->img.img_ptr = mlx_new_image(data->mlx, 990, 600);
-	data->img.img_mas = (int *)mlx_get_data_addr(data->img.img_ptr, &(bpp), &(ln_s),
-	&(endian));
-}
-
-int		main(void)
+int				main(void)
 {
 	t_mlx	vis;
 

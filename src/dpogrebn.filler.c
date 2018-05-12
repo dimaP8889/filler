@@ -16,7 +16,7 @@
 Find number of a player 
 */
 
-int		ft_check_player(int fd) 
+static	int		ft_check_player(int fd) 
 {
 	char *str;
 
@@ -37,7 +37,7 @@ int		ft_check_player(int fd)
 Copy map to char massive
 */
 
-char	**ft_fill_map(int fd, int hei_c, char **map)
+static	char	**ft_fill_map(int fd, int hei_c, char **map)
 {
 	char		*str;
 	int			coun;
@@ -70,7 +70,7 @@ char	**ft_fill_map(int fd, int hei_c, char **map)
 Allocate mem for char massive
 */
 
-char	**ft_get_size(char *str, int fd)
+static	char	**ft_get_size(char *str, int fd)
 {
 	int 	len;
 	int		hei;
@@ -100,7 +100,7 @@ char	**ft_get_size(char *str, int fd)
 
 /* Main program*/
 
-void 	ft_read(t_flr flr, int fd)
+static	void 	ft_read(t_flr flr, int fd)
 {
 	static int 	check;
 	char		*str;

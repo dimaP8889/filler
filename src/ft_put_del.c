@@ -6,7 +6,7 @@
 /*   By: dmitriy1 <dmitriy1@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:02:24 by dmitriy1          #+#    #+#             */
-/*   Updated: 2018/05/10 17:52:57 by dmitriy1         ###   ########.fr       */
+/*   Updated: 2018/05/12 17:25:02 by dmitriy1         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 Count minus for y 
 */
 
-int		ft_count_min_y(t_flr flr)
+static	int	ft_count_min_y(t_flr flr)
 {
 	int	x;
 	int	y;
@@ -44,7 +44,7 @@ int		ft_count_min_y(t_flr flr)
 Count minus for x 
 */
 
-int		ft_count_min_x(t_flr flr)
+static	int	ft_count_min_x(t_flr flr)
 {
 	int	x;
 	int	y;
@@ -72,7 +72,7 @@ int		ft_count_min_x(t_flr flr)
 Try to put figure on map and count it sum 
 */
 
-int		ft_put_figure(t_flr flr, int x_mv, int y_mv, t_coord coord)
+static	int	ft_put_figure(t_flr flr, int x_mv, int y_mv, t_coord coord)
 {
 	int	x;
 	int	y;
@@ -105,7 +105,7 @@ int		ft_put_figure(t_flr flr, int x_mv, int y_mv, t_coord coord)
 Save the minnimal sum and it coordinates
 */
 
-int		ft_find_pos(t_flr flr, int x_mv, int y_mv)
+static	int	ft_find_pos(t_flr flr, int x_mv, int y_mv)
 {
 	t_coord	coord;
 	int		sv_x;
@@ -134,7 +134,7 @@ int		ft_find_pos(t_flr flr, int x_mv, int y_mv)
 	return (!make_out(min, sv_y - y_mv, sv_x - x_mv) ? 0 : 1);
 }
 
-int	ft_put_det(t_flr flr)
+int			ft_put_det(t_flr flr)
 {
 	int	y_mv;
 	int x_mv;
